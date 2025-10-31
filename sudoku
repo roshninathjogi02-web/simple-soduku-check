@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+bool is_valid_sudoku(int grid[9][9]) {
+    for (int i = 0; i < 9; i++) {
+        bool seen[10] = {false};
+        for (int j = 0; j < 9; j++) {
+            if (grid[i][j] != 0 && seen[grid[i][j]]) {
+                return false;
+            }
+            seen[grid[i][j]] = true;
+        }
+    }
+    for (int j = 0; j < 9; j++) {
+        bool seen[10] = {false};
+        for (int i = 0; i < 9; i++) {
+            if (grid[i][j] != 0 && seen[grid[i][j]]) {
+                return false;
+            }
+            seen[grid[i][j]] = true;
+        }
+    }
+ for (int block_row = 0; block_row < 3; block_row++) {
+        for (int block_col = 0; block_col < 3; block_col++) {
+            bool seen[10] = {false};
+            for (int i = block_row * 3; i < block_row * 3 + 3; i++) {
+                for (int j = block_col * 3; j < block_col * 3 + 3; j++) {
+                    if (grid[i][j] != 0 && seen[grid[i][j]]) {
+                        return false;
+                    }
+                    seen[grid[i][j]] = true;
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    int grid[9][9] = {
+    };
+
+    if (is_valid_sudoku(grid)) {
+        printf("Sudoku is valid.\n");
+    } else {
+        printf("Sudoku is invalid.\n");
+    }
+
+    return 0;
+}
